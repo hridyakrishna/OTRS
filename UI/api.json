@@ -1,0 +1,284 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger Booking"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost"
+basePath: "/api"
+tags:
+- name: "booking"
+  description: "List bookings"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "restaurant"
+  description: "List restaurants"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "user"
+  description: "List users"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+
+schemes:
+- "http"
+paths:
+  /booking:
+    get:
+      tags:
+      - "booking"
+      summary: "List all bookings"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "findbookingByuserId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "query"
+        description: "Status values that need to be considered for filter"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Bookings"
+        "400":
+          description: "Invalid status value"
+
+    post:
+      tags:
+      - "booking"
+      summary: "Add new booking"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "AddBooking"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "Status values that need to be considered for filter"
+        required: true
+        schema:
+         $ref: "#/definitions/BookingEntry"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/BookingEntry"
+        "400":
+          description: "Invalid status value"
+
+
+  /restaurant:
+    get:
+      tags:
+      - "restaurant"
+      summary: "List all restaurants"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "findbookingByuserId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "location"
+        in: "query"
+        example: "northstreet"
+        description: "Status values that need to be considered for filter"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Restaurants"
+        "400":
+          description: "Invalid status value"
+
+    post:
+      tags:
+      - "restaurant"
+      summary: "Add new restaurant"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "AddRestaurant"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "Status values that need to be considered for filter"
+        required: true
+        schema:
+          $ref: "#/definitions/RestaurantEntry"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/RestaurantEntry"
+        "400":
+          description: "Invalid status value"
+
+
+    delete:
+      tags:
+      - "restaurant"
+      summary: "Delete restaurant"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "DeleteRestaurant"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "Status values that need to be considered for filter"
+        required: true
+        type: "string"
+        example: "rest1"
+      responses:
+        "200":
+          description: "succesful operation"
+          schema:
+            $ref: "#/definitions/RestaurantEntry"
+        "400":
+          description: "Invalid status value"
+
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "Add user"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "AddUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "Status values that need to be considered for filter"
+        required: true
+        schema:
+            $ref: "#/definitions/UserEntry"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+              $ref: "#/definitions/UserEntry"
+        "400":
+          description: "Invalid status value"
+
+
+
+
+definitions:
+  Bookings:
+    type: "array"
+    items:
+      $ref: "#/definitions/BookingEntry"
+  BookingEntry:
+    type: "object"
+    required:
+    - "resaturantId"
+    - "userId"
+    - "table"
+    - "people"
+    - "date"
+    properties:
+      restaurantId:
+        type: "string"
+        example: "rest1"
+      userId:
+        type: "string"
+        example: "user1"
+      table:
+        type: "integer"
+        format: "int64"
+        example: "4"
+      people:
+        type: "integer"
+        format: "int64"
+        example: "6"
+      date:
+        type: "string"
+        format: "date"
+
+  Restaurants:
+    type: "array"
+    items:
+      $ref: "#/definitions/RestaurantEntry"
+  RestaurantEntry:
+    type: "object"
+    required:
+    - "name"
+    - "phone"
+    - "address"
+    - "location"
+    - "imageURL"
+    - "stars"
+    - "tags"
+    properties:
+      name:
+        type: "string"
+        example: "BurgerKing"
+      phone:
+        type: "string"
+        example: "123456789"
+      address:
+        type: "string"
+        example: "abclane"
+      location:
+        type: "string"
+        example: "northstreet"
+      imageURL:
+        type: "string"
+        example: "amrita.edu"
+      stars:
+        type: "integer"
+        format: "int64"
+        example: "4"
+      tags:
+        type: "string"
+        example: "parking"
+
+  UserEntry:
+    type: "object"
+    required:
+    - "firstName"
+    - "lastName"
+    - "phone"
+    - "email"
+    - "password"
+    properties:
+      firstName:
+        type: "string"
+        example: "Hridya"
+      lastName:
+        type: "string"
+        example: "Krishna R"
+      phone:
+        type: "string"
+        example: "123456789"
+      email:
+        type: "string"
+        example: "abc@amrita.edu"
+      password:
+        type: "string"
+        example: "placeholder"
