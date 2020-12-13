@@ -7,8 +7,8 @@ const bookingRoutes = require('./Api_Booking/B_routes');
 const helloworld = require('./Api_Booking/helloworld');
 
 const PORT = 8080;
-const MONGO_PORT = process.env.DB_SVC_SERVICE_SERVICE_PORT || "3000";
-const MONGO_HOST = process.env.DB_SVC_SERVICE_SERVICE_HOST || "172.17.0.1""
+const MONGO_PORT = process.env.DB_SVC_SERVICE_SERVICE_PORT || "27017";
+const MONGO_HOST = process.env.DB_SVC_SERVICE_SERVICE_HOST || "172.17.0.1";
 const MONGO_URI = 'mongodb://' + MONGO_HOST + ':' + MONGO_PORT + '/SelecTableDB';
 SESS_NAME = 'sid';
 SESS_SECRET = 'session_secret_change';
