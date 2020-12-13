@@ -6,7 +6,9 @@ const connectStore = require('connect-mongo');
 const userRoutes = require('./Api_User/U_routes');
 
 const PORT = 8080;
-const MONGO_URI = 'mongodb://172.17.0.1:27017/SelecTableDB';
+const MONGO_PORT = process.env.DB_SVC_SERVICE_SERVICE_PORT || "3000";
+const MONGO_HOST = process.env.DB_SVC_SERVICE_SERVICE_HOST || "172.17.0.1""
+const MONGO_URI = 'mongodb://' + MONGO_HOST + ':' + MONGO_PORT + '/SelecTableDB';
 SESS_NAME = 'sid';
 SESS_SECRET = 'session_secret_change';
 SESS_LIFETIME = 1000 * 60 * 60 * 2;

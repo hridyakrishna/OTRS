@@ -1,4 +1,5 @@
 FROM nginx:latest
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf.template /etc/nginx/nginx.conf.template
+COPY ./start-gateway.sh /start-gateway.sh
 EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "/start-gateway.sh"]
